@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
+import { withBase } from '../basePath';
 import {
   Facebook,
   Instagram,
@@ -60,11 +61,11 @@ const shows = [
 ];
 
 const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'Story', href: '/story' },
-  { label: 'Band', href: '/#band' },
-  { label: 'Tours', href: '/tours' },
-  { label: 'Merch', href: '/#merch' },
+  { label: 'Home', href: withBase('/') },
+  { label: 'Story', href: withBase('/story') },
+  { label: 'Band', href: withBase('/#band') },
+  { label: 'Tours', href: withBase('/tours') },
+  { label: 'Merch', href: withBase('/#merch') },
 ];
 
 const socialLinks = [
@@ -117,7 +118,7 @@ export default function VersaEmergeTours() {
             scrolled ? 'py-2 lg:py-3' : 'py-4 lg:py-6'
           }`}
         >
-          <motion.a href="/" whileHover={{ scale: 1.02 }} className="relative min-w-0 lg:py-1">
+          <motion.a href={withBase('/')} whileHover={{ scale: 1.02 }} className="relative min-w-0 lg:py-1">
             <img
               src={imgIconLogo}
               alt="VersaEmerge"
@@ -360,7 +361,7 @@ export default function VersaEmergeTours() {
                   aria-label={service.name}
                 >
                   <img
-                    src={`/assets/versaemerge-tours/${service.asset}`}
+                    src={withBase(`/assets/versaemerge-tours/${service.asset}`)}
                     alt=""
                     loading="lazy"
                     decoding="async"
