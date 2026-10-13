@@ -1,0 +1,69 @@
+@font-face {
+  font-family: 'Cinzel Decorative:Regular';
+  src: url('https://static.figma.com/font/CinzelDecorative-Regular_1') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond:Bold';
+  src: url('https://static.figma.com/font/CormorantGaramond_wght__1') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Lato:Regular';
+  src: url('https://static.figma.com/font/Lato-Regular_1') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Montserrat:Bold';
+  src: url('https://static.figma.com/font/Montserrat_wght__2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Old Standard TT:Bold';
+  src: url('https://static.figma.com/font/OldStandard-Bold_1') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans:Regular';
+  src: url('https://static.figma.com/font/PlusJakartaSans_wght__2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans:SemiBold';
+  src: url('https://static.figma.com/font/PlusJakartaSans_wght__2') format('woff2');
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Roboto Mono:Regular';
+  src: url('https://static.figma.com/font/RobotoMono_wght__2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Cinzel Decorative';
+  src: url('https://static.figma.com/font/CinzelDecorative-Regular_1') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  src: url('https://static.figma.com/font/RobotoMono_wght__2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+}
