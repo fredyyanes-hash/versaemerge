@@ -21,7 +21,7 @@ const navLinks = [
   { label: 'Story', href: withBase('/story') },
   { label: 'Band', href: withBase('/band') },
   { label: 'Tours', href: withBase('/tours') },
-  { label: 'Merch', href: withBase('/#merch') },
+  { label: 'Merch', href: withBase('/merch') },
 ];
 
 const socialLinks = [
