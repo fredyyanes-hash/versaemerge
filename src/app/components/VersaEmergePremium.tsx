@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
+import { withBase } from '../basePath';
 import { Facebook, Instagram, Youtube, Twitter, Linkedin, Menu, X } from 'lucide-react';
 import imgRectangle1 from '../../imports/Home/b26a8d96a0d70b33ccc43691d2fce58b102ca1ec.png';
 import imgRectangle7 from '../../imports/Home/7f12ea1300756f144a0fb5daaf68dbfc01103a46.png';
@@ -85,7 +86,7 @@ export default function VersaEmergePremium() {
             {['Home', 'Story', 'Band', 'Tours', 'Merch'].map((item, i) => (
               <motion.a
                 key={item}
-                href={item === 'Tours' ? '/tours' : `#${item.toLowerCase()}`}
+                href={item === 'Tours' ? withBase('/tours') : `#${item.toLowerCase()}`}
                 whileHover={{ y: -2 }}
                 className="relative font-['Roboto_Mono'] text-xs uppercase tracking-[0.2em] text-white/70 hover:text-white transition-all duration-300 group"
               >
@@ -151,7 +152,7 @@ export default function VersaEmergePremium() {
               {['Home', 'Story', 'Band', 'Tours', 'Merch'].map((item) => (
                 <a
                   key={item}
-                  href={item === 'Tours' ? '/tours' : `#${item.toLowerCase()}`}
+                  href={item === 'Tours' ? withBase('/tours') : `#${item.toLowerCase()}`}
                   onClick={() => {
                     setActiveSection(item.toLowerCase());
                     setMobileMenuOpen(false);
