@@ -291,13 +291,15 @@ export default function VersaEmergePremium() {
       <section className="deferred-section relative py-20 lg:py-32 overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={imgGothEyes1}
+            src={withBase('/assets/versaemerge-home/featured-door-1280.webp')}
+            srcSet={`${withBase('/assets/versaemerge-home/featured-door-1280.webp')} 1280w, ${withBase('/assets/versaemerge-home/featured-door-2400.webp')} 2400w`}
+            sizes="100vw"
             alt=""
             loading="lazy"
             decoding="async"
-            className="w-full h-full object-cover object-center brightness-125"
+            className="w-full h-full object-cover object-[40%_center]"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0a0e1a]/75 via-[#0a0e1a]/60 to-[#0a0e1a]/70" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0a0e1a]/70 via-[#0a0e1a]/45 to-[#0a0e1a]/65" />
         </div>
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#ff1744] to-transparent opacity-30" />
 
