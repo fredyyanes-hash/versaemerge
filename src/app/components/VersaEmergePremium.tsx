@@ -85,7 +85,7 @@ export default function VersaEmergePremium() {
             {['Home', 'Story', 'Band', 'Tours', 'Merch'].map((item, i) => (
               <motion.a
                 key={item}
-                href={item === 'Tours' || item === 'Story' || item === 'Band' ? withBase(`/${item.toLowerCase()}`) : `#${item.toLowerCase()}`}
+                href={item === 'Tours' || item === 'Story' || item === 'Band' || item === 'Merch' ? withBase(`/${item.toLowerCase()}`) : `#${item.toLowerCase()}`}
                 whileHover={{ y: -2 }}
                 className="relative font-['Roboto_Mono'] text-xs uppercase tracking-[0.2em] text-white/70 hover:text-white transition-all duration-300 group"
               >
@@ -151,7 +151,7 @@ export default function VersaEmergePremium() {
               {['Home', 'Story', 'Band', 'Tours', 'Merch'].map((item) => (
                 <a
                   key={item}
-                  href={item === 'Tours' || item === 'Story' || item === 'Band' ? withBase(`/${item.toLowerCase()}`) : `#${item.toLowerCase()}`}
+                  href={item === 'Tours' || item === 'Story' || item === 'Band' || item === 'Merch' ? withBase(`/${item.toLowerCase()}`) : `#${item.toLowerCase()}`}
                   onClick={() => {
                     setActiveSection(item.toLowerCase());
                     setMobileMenuOpen(false);
@@ -629,13 +629,14 @@ export default function VersaEmergePremium() {
                 ))}
               </motion.div>
 
-              <motion.button
+              <motion.a
+                href={withBase('/merch')}
                 variants={fadeInUp}
                 whileHover={{ scale: 1.05, y: -2 }}
-                className="w-full sm:w-auto px-8 sm:px-10 py-4 bg-gradient-to-r from-[#ff1744] to-[#f50057] font-['Roboto_Mono'] text-sm uppercase tracking-[0.15em] font-semibold shadow-lg shadow-[#ff1744]/30 hover:shadow-xl hover:shadow-[#ff1744]/40 transition-all duration-300"
+                className="inline-block text-center w-full sm:w-auto px-8 sm:px-10 py-4 bg-gradient-to-r from-[#ff1744] to-[#f50057] font-['Roboto_Mono'] text-sm uppercase tracking-[0.15em] font-semibold shadow-lg shadow-[#ff1744]/30 hover:shadow-xl hover:shadow-[#ff1744]/40 transition-all duration-300"
               >
                 Browse Collection
-              </motion.button>
+              </motion.a>
             </motion.div>
           </div>
         </div>

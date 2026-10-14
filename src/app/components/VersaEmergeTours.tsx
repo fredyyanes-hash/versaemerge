@@ -148,7 +148,7 @@ const navLinks = [
   { label: 'Story', href: withBase('/story') },
   { label: 'Band', href: withBase('/band') },
   { label: 'Tours', href: withBase('/tours') },
-  { label: 'Merch', href: withBase('/#merch') },
+  { label: 'Merch', href: withBase('/merch') },
 ];
 
 const socialLinks = [
@@ -880,7 +880,7 @@ export default function VersaEmergeTours() {
                   while it lasts.
                 </p>
                 <motion.a
-                  href={withBase('/#merch')}
+                  href={withBase('/merch')}
                   whileHover={{ scale: 1.05, y: -2 }}
                   className="inline-flex items-center gap-3 bg-gradient-to-r from-[#ff1744] to-[#f50057] px-7 py-4 font-['Roboto_Mono'] text-xs font-semibold uppercase tracking-[0.15em] shadow-lg shadow-[#ff1744]/25"
                 >
