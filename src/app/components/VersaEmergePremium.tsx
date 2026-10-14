@@ -86,7 +86,7 @@ export default function VersaEmergePremium() {
             {['Home', 'Story', 'Band', 'Tours', 'Merch'].map((item, i) => (
               <motion.a
                 key={item}
-                href={item === 'Tours' ? withBase('/tours') : `#${item.toLowerCase()}`}
+                href={item === 'Tours' || item === 'Story' ? withBase(`/${item.toLowerCase()}`) : `#${item.toLowerCase()}`}
                 whileHover={{ y: -2 }}
                 className="relative font-['Roboto_Mono'] text-xs uppercase tracking-[0.2em] text-white/70 hover:text-white transition-all duration-300 group"
               >
@@ -152,7 +152,7 @@ export default function VersaEmergePremium() {
               {['Home', 'Story', 'Band', 'Tours', 'Merch'].map((item) => (
                 <a
                   key={item}
-                  href={item === 'Tours' ? withBase('/tours') : `#${item.toLowerCase()}`}
+                  href={item === 'Tours' || item === 'Story' ? withBase(`/${item.toLowerCase()}`) : `#${item.toLowerCase()}`}
                   onClick={() => {
                     setActiveSection(item.toLowerCase());
                     setMobileMenuOpen(false);
@@ -504,13 +504,14 @@ export default function VersaEmergePremium() {
               From underground rebellion to mainstream recognition, witness the metamorphosis of sound and vision that defines VersaEmerge.
             </motion.p>
 
-            <motion.button
+            <motion.a
               variants={fadeInUp}
+              href={withBase('/story')}
               whileHover={{ scale: 1.05, y: -2 }}
-              className="px-10 py-4 bg-gradient-to-r from-[#ff1744] to-[#f50057] font-['Roboto_Mono'] text-sm uppercase tracking-[0.15em] font-semibold shadow-lg shadow-[#ff1744]/30 hover:shadow-xl hover:shadow-[#ff1744]/40 transition-all duration-300"
+              className="inline-block px-10 py-4 bg-gradient-to-r from-[#ff1744] to-[#f50057] font-['Roboto_Mono'] text-sm uppercase tracking-[0.15em] font-semibold shadow-lg shadow-[#ff1744]/30 hover:shadow-xl hover:shadow-[#ff1744]/40 transition-all duration-300"
             >
               Discover the Story
-            </motion.button>
+            </motion.a>
           </motion.div>
 
           {/* Timeline Cards */}
