@@ -83,7 +83,7 @@ const products: Product[] = [
         swatch: '#f1efe9',
         image: 'hoodie-1000.webp',
         imageSm: 'hoodie-560.webp',
-        width: 844,
+        width: 832,
         smWidth: 560,
         focus: '50% 35%',
       },
