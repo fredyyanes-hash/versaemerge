@@ -8,7 +8,6 @@ import imgRectangle8 from '../../imports/Home/c9d25a6bcc8d0db405bb265444afc8874b
 import imgGothEyes1 from '../../imports/Home/35059a8c9ab5633b770ca028306257117896b6e9.png';
 import imgSkull1 from '../../imports/Home/5473ef8a7def3938961e41f1841053bac2d61b0c.png';
 import imgScreenshot from '../../imports/Home/a2ba9c5d520ab43a75ebe987cc1915e24adb764e.png';
-import imgBandPhoto from '../../imports/TheStory/0beaa2d2f469aefecdc8fc2a99dd2df001692d89.png';
 import imgIconLogo from '../../imports/versaemerge-icon-logo.png';
 
 export default function VersaEmergePremium() {
@@ -86,7 +85,7 @@ export default function VersaEmergePremium() {
             {['Home', 'Story', 'Band', 'Tours', 'Merch'].map((item, i) => (
               <motion.a
                 key={item}
-                href={item === 'Tours' || item === 'Story' ? withBase(`/${item.toLowerCase()}`) : `#${item.toLowerCase()}`}
+                href={item === 'Tours' || item === 'Story' || item === 'Band' ? withBase(`/${item.toLowerCase()}`) : `#${item.toLowerCase()}`}
                 whileHover={{ y: -2 }}
                 className="relative font-['Roboto_Mono'] text-xs uppercase tracking-[0.2em] text-white/70 hover:text-white transition-all duration-300 group"
               >
@@ -152,7 +151,7 @@ export default function VersaEmergePremium() {
               {['Home', 'Story', 'Band', 'Tours', 'Merch'].map((item) => (
                 <a
                   key={item}
-                  href={item === 'Tours' || item === 'Story' ? withBase(`/${item.toLowerCase()}`) : `#${item.toLowerCase()}`}
+                  href={item === 'Tours' || item === 'Story' || item === 'Band' ? withBase(`/${item.toLowerCase()}`) : `#${item.toLowerCase()}`}
                   onClick={() => {
                     setActiveSection(item.toLowerCase());
                     setMobileMenuOpen(false);
@@ -371,7 +370,7 @@ export default function VersaEmergePremium() {
       <section id="band" className="deferred-section relative py-20 lg:py-32 overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={imgBandPhoto}
+            src={withBase('/assets/versaemerge-band/band-portrait.webp')}
             alt="The Band"
             loading="lazy"
             decoding="async"
@@ -453,6 +452,22 @@ export default function VersaEmergePremium() {
                 </p>
               </motion.div>
             ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mt-12 text-center lg:mt-16"
+          >
+            <motion.a
+              href={withBase('/band')}
+              whileHover={{ scale: 1.05, y: -2 }}
+              className="inline-block px-10 py-4 bg-gradient-to-r from-[#ff1744] to-[#f50057] font-['Roboto_Mono'] text-sm uppercase tracking-[0.15em] font-semibold shadow-lg shadow-[#ff1744]/30 hover:shadow-xl hover:shadow-[#ff1744]/40 transition-all duration-300"
+            >
+              Meet the Band
+            </motion.a>
           </motion.div>
         </div>
 
