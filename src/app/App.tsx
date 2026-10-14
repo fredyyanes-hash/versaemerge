@@ -4,10 +4,12 @@ import { currentPath } from './basePath';
 
 const VersaEmergeTours = lazy(() => import('./components/VersaEmergeTours'));
 const VersaEmergeStory = lazy(() => import('./components/VersaEmergeStory'));
+const VersaEmergeBand = lazy(() => import('./components/VersaEmergeBand'));
 
 const routes: Record<string, ComponentType> = {
   '/tours': VersaEmergeTours,
   '/story': VersaEmergeStory,
+  '/band': VersaEmergeBand,
 };
 
 export default function App() {

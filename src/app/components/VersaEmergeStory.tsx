@@ -19,7 +19,7 @@ const storyAsset = (name: string) => withBase(`/assets/versaemerge-story/${name}
 const navLinks = [
   { label: 'Home', href: withBase('/') },
   { label: 'Story', href: withBase('/story') },
-  { label: 'Band', href: withBase('/#band') },
+  { label: 'Band', href: withBase('/band') },
   { label: 'Tours', href: withBase('/tours') },
   { label: 'Merch', href: withBase('/#merch') },
 ];
