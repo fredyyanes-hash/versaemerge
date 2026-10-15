@@ -1,20 +1,21 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { useState, useEffect, useCallback } from 'react';
+import { m } from 'motion/react';
 import { withBase } from '../basePath';
+import { useEscapeKey } from '../useEscapeKey';
 import { Facebook, Instagram, Youtube, Twitter, Linkedin, Menu, X } from 'lucide-react';
-import imgRectangle1 from '../../imports/Home/b26a8d96a0d70b33ccc43691d2fce58b102ca1ec.png';
-import imgRectangle7 from '../../imports/Home/7f12ea1300756f144a0fb5daaf68dbfc01103a46.png';
-import imgRectangle8 from '../../imports/Home/c9d25a6bcc8d0db405bb265444afc8874b72f490.png';
-import imgGothEyes1 from '../../imports/Home/35059a8c9ab5633b770ca028306257117896b6e9.png';
-import imgSkull1 from '../../imports/Home/5473ef8a7def3938961e41f1841053bac2d61b0c.png';
-import imgScreenshot from '../../imports/Home/a2ba9c5d520ab43a75ebe987cc1915e24adb764e.png';
-import imgIconLogo from '../../imports/versaemerge-icon-logo.png';
+import imgRectangle1 from '../../imports/Home/hallway.webp';
+import imgRectangle8 from '../../imports/Home/forest.webp';
+import imgGothEyes1 from '../../imports/Home/goth-eyes.webp';
+import imgSkull1 from '../../imports/Home/skull.webp';
+import imgIconLogo from '../../imports/versaemerge-icon-logo.webp';
 
 export default function VersaEmergePremium() {
   const [email, setEmail] = useState('');
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const closeMobileMenu = useCallback(() => setMobileMenuOpen(false), []);
+  useEscapeKey(mobileMenuOpen, closeMobileMenu);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,7 +43,7 @@ export default function VersaEmergePremium() {
   return (
     <div className="min-h-screen bg-[#0a0e1a] text-white overflow-x-hidden">
       {/* GLASSMORPHIC NAVIGATION */}
-      <motion.nav
+      <m.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -57,7 +58,7 @@ export default function VersaEmergePremium() {
           }`}
         >
           {/* Premium Logo Treatment */}
-          <motion.div
+          <m.div
             whileHover={{ scale: 1.02 }}
             className="relative min-w-0 lg:py-1"
           >
@@ -78,12 +79,12 @@ export default function VersaEmergePremium() {
               </span>
             </h1>
             <div className="hidden lg:block absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#ff1744] to-transparent opacity-60" />
-          </motion.div>
+          </m.div>
 
           {/* Elevated Navigation Links */}
           <div className="hidden lg:flex items-center gap-4 xl:gap-12">
             {['Home', 'Story', 'Band', 'Tours', 'Merch'].map((item, i) => (
-              <motion.a
+              <m.a
                 key={item}
                 href={item === 'Tours' || item === 'Story' || item === 'Band' || item === 'Merch' ? withBase(`/${item.toLowerCase()}`) : `#${item.toLowerCase()}`}
                 whileHover={{ y: -2 }}
@@ -91,7 +92,7 @@ export default function VersaEmergePremium() {
               >
                 {item}
                 <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-gradient-to-r from-[#ff1744] to-[#f50057] group-hover:w-full transition-all duration-300" />
-              </motion.a>
+              </m.a>
             ))}
 
             {/* Social Icons in Header */}
@@ -103,7 +104,7 @@ export default function VersaEmergePremium() {
                 { name: 'Twitter', icon: Twitter },
                 { name: 'LinkedIn', icon: Linkedin }
               ].map(({ name, icon: Icon }) => (
-                <motion.a
+                <m.a
                   key={name}
                   href="#"
                   whileHover={{ scale: 1.1 }}
@@ -111,11 +112,11 @@ export default function VersaEmergePremium() {
                   aria-label={name}
                 >
                   <Icon className="w-4 h-4" />
-                </motion.a>
+                </m.a>
               ))}
             </div>
 
-            <motion.button
+            <m.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className={`relative font-['Roboto_Mono'] text-xs uppercase tracking-[0.15em] overflow-hidden group transition-all duration-500 ${
@@ -125,7 +126,7 @@ export default function VersaEmergePremium() {
               <div className="absolute inset-0 bg-gradient-to-r from-[#ff1744] to-[#f50057] opacity-100 group-hover:opacity-90 transition-opacity" />
               <div className="absolute inset-0 bg-gradient-to-r from-[#f50057] to-[#ff1744] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <span className="relative z-10 text-white font-semibold">Contact</span>
-            </motion.button>
+            </m.button>
           </div>
 
           <button
@@ -141,7 +142,7 @@ export default function VersaEmergePremium() {
         </div>
 
         {mobileMenuOpen && (
-          <motion.div
+          <m.div
             id="mobile-navigation"
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -164,20 +165,20 @@ export default function VersaEmergePremium() {
                 </a>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         )}
-        <motion.div
+        <m.div
           initial={false}
           animate={{ opacity: scrolled ? 1 : 0, scaleX: scrolled ? 1 : 0.35 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className="absolute inset-x-0 bottom-0 h-px origin-center bg-gradient-to-r from-transparent via-[#ff1744]/70 to-transparent"
         />
-      </motion.nav>
+      </m.nav>
 
       {/* CINEMATIC HERO */}
       <section id="home" className="relative min-h-[760px] sm:min-h-screen flex items-center justify-center overflow-hidden py-28 sm:py-32">
         {/* Parallax Background */}
-        <motion.div
+        <m.div
           initial={{ scale: 1.2 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1.5, ease: 'easeOut' }}
@@ -191,12 +192,12 @@ export default function VersaEmergePremium() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#0a0e1a]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,23,68,0.15),transparent_50%)]" />
-        </motion.div>
+        </m.div>
 
         {/* Hero Content */}
         <div className="relative z-10 w-full px-5 text-center sm:px-8 max-w-6xl">
           <div className="grid items-center gap-8 lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-12">
-          <motion.div
+          <m.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -216,10 +217,10 @@ export default function VersaEmergePremium() {
               className="relative h-[152px] w-full rounded-xl ring-1 ring-white/10"
               style={{ borderRadius: 12 }}
             />
-          </motion.div>
+          </m.div>
 
           <div className="lg:text-left">
-          <motion.h1
+          <m.h1
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -228,9 +229,9 @@ export default function VersaEmergePremium() {
             <span className="bg-gradient-to-r from-[#ff1744] via-[#f50057] to-[#ff1744] bg-clip-text text-transparent bg-[length:200%_auto] animate-[shimmer_4s_linear_infinite]">
               VERSAEMERGE
             </span>
-          </motion.h1>
+          </m.h1>
 
-          <motion.div
+          <m.div
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
@@ -243,48 +244,48 @@ export default function VersaEmergePremium() {
               <span className="uppercase tracking-[0.18em] sm:tracking-[0.3em]">Gothic · Alternative · Rock</span>
               <span className="hidden sm:block w-12 h-[1px] bg-gradient-to-l from-transparent to-white/30" />
             </div>
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.8 }}
             className="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start"
           >
-            <motion.button
+            <m.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               className="w-full sm:w-auto px-8 sm:px-10 py-4 bg-gradient-to-r from-[#ff1744] to-[#f50057] font-['Roboto_Mono'] text-sm uppercase tracking-[0.15em] font-semibold shadow-lg shadow-[#ff1744]/30 hover:shadow-xl hover:shadow-[#ff1744]/40 transition-all duration-300"
             >
               Explore Music
-            </motion.button>
-            <motion.button
+            </m.button>
+            <m.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               className="w-full sm:w-auto px-8 sm:px-10 py-4 border border-white/20 font-['Roboto_Mono'] text-sm uppercase tracking-[0.15em] backdrop-blur-sm hover:bg-white/5 hover:border-white/30 transition-all duration-300"
             >
               Watch Video
-            </motion.button>
-          </motion.div>
+            </m.button>
+          </m.div>
           </div>
           </div>
         </div>
 
         {/* Scroll Indicator */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
           className="hidden sm:block absolute bottom-12 left-1/2 -translate-x-1/2"
         >
-          <motion.div
+          <m.div
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
             className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2"
           >
             <div className="w-1 h-2 bg-gradient-to-b from-[#ff1744] to-transparent rounded-full" />
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </section>
 
       {/* PAINT IT BLACK - Elevated Design */}
@@ -305,45 +306,45 @@ export default function VersaEmergePremium() {
 
         <div className="relative max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <motion.div
+            <m.div
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
               variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="mb-4">
+              <m.div variants={fadeInUp} className="mb-4">
                 <span className="text-xs uppercase tracking-[0.3em] text-[#ff1744] font-['Roboto_Mono'] font-semibold">
                   Featured Track
                 </span>
-              </motion.div>
+              </m.div>
 
-              <motion.h2
+              <m.h2
                 variants={fadeInUp}
                 className="font-['Cinzel_Decorative'] text-4xl sm:text-5xl lg:text-6xl mb-6 leading-tight"
               >
                 <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
                   PAINT IT BLACK
                 </span>
-              </motion.h2>
+              </m.h2>
 
-              <motion.p
+              <m.p
                 variants={fadeInUp}
                 className="font-['Roboto_Mono'] text-base sm:text-lg text-white/60 mb-8 leading-relaxed max-w-xl"
               >
                 An immersive sonic experience that blends haunting melodies with raw emotional power. This track captures the essence of transformation through darkness.
-              </motion.p>
+              </m.p>
 
-              <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
+              <m.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
                 <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-[#ff1744] to-[#f50057] font-['Roboto_Mono'] text-sm uppercase tracking-[0.15em] font-semibold hover:shadow-lg hover:shadow-[#ff1744]/30 transition-all duration-300">
                   Listen Now
                 </button>
                 <button className="w-full sm:w-auto px-8 py-4 border border-white/20 font-['Roboto_Mono'] text-sm uppercase tracking-[0.15em] hover:bg-white/5 transition-all duration-300">
                   Read Story
                 </button>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: 60 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -362,7 +363,7 @@ export default function VersaEmergePremium() {
                   className="w-full h-full"
                 />
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
 
@@ -384,31 +385,31 @@ export default function VersaEmergePremium() {
         </div>
 
         <div className="relative max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
-          <motion.div
+          <m.div
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
             variants={staggerContainer}
             className="text-center mb-12 lg:mb-20"
           >
-            <motion.div variants={fadeInUp} className="mb-4">
+            <m.div variants={fadeInUp} className="mb-4">
               <span className="text-xs uppercase tracking-[0.3em] text-[#ff1744] font-['Roboto_Mono'] font-semibold">
                 Meet the Artists
               </span>
-            </motion.div>
+            </m.div>
 
-            <motion.h2
+            <m.h2
               variants={fadeInUp}
               className="font-['Cinzel_Decorative'] text-4xl sm:text-5xl lg:text-6xl leading-tight"
             >
               <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
                 THE BAND
               </span>
-            </motion.h2>
-          </motion.div>
+            </m.h2>
+          </m.div>
 
           {/* Band Members Grid */}
-          <motion.div
+          <m.div
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
@@ -432,7 +433,7 @@ export default function VersaEmergePremium() {
                 description: "Blake's innovative compositions shape the band's sonic landscape, merging light and shadow into a transformative harmony. His vision drives VersaEmerge's gothic reinvention."
               }
             ].map((member, i) => (
-              <motion.div
+              <m.div
                 key={i}
                 variants={fadeInUp}
                 className="group"
@@ -454,25 +455,25 @@ export default function VersaEmergePremium() {
                 <p className="font-['Roboto_Mono'] text-sm text-white/60 leading-relaxed">
                   {member.description}
                 </p>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="mt-12 text-center lg:mt-16"
           >
-            <motion.a
+            <m.a
               href={withBase('/band')}
               whileHover={{ scale: 1.05, y: -2 }}
               className="inline-block px-10 py-4 bg-gradient-to-r from-[#ff1744] to-[#f50057] font-['Roboto_Mono'] text-sm uppercase tracking-[0.15em] font-semibold shadow-lg shadow-[#ff1744]/30 hover:shadow-xl hover:shadow-[#ff1744]/40 transition-all duration-300"
             >
               Meet the Band
-            </motion.a>
-          </motion.div>
+            </m.a>
+          </m.div>
         </div>
 
         {/* Decorative gradient overlay */}
@@ -494,47 +495,47 @@ export default function VersaEmergePremium() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(245,0,87,0.08),transparent_50%)]" />
 
         <div className="relative max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 text-center">
-          <motion.div
+          <m.div
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
             variants={staggerContainer}
             className="max-w-4xl mx-auto"
           >
-            <motion.div variants={fadeInUp} className="mb-4">
+            <m.div variants={fadeInUp} className="mb-4">
               <span className="text-xs uppercase tracking-[0.3em] text-[#ff1744] font-['Roboto_Mono'] font-semibold">
                 The Journey
               </span>
-            </motion.div>
+            </m.div>
 
-            <motion.h2
+            <m.h2
               variants={fadeInUp}
               className="font-['Cinzel_Decorative'] text-4xl sm:text-5xl lg:text-6xl mb-8 leading-tight"
             >
               <span className="bg-gradient-to-r from-white via-white/90 to-white/60 bg-clip-text text-transparent">
                 UNVEILING AN ARTISTIC EVOLUTION
               </span>
-            </motion.h2>
+            </m.h2>
 
-            <motion.p
+            <m.p
               variants={fadeInUp}
               className="font-['Roboto_Mono'] text-base sm:text-lg text-white/60 mb-10 sm:mb-12 leading-relaxed"
             >
               From underground rebellion to mainstream recognition, witness the metamorphosis of sound and vision that defines VersaEmerge.
-            </motion.p>
+            </m.p>
 
-            <motion.a
+            <m.a
               variants={fadeInUp}
               href={withBase('/story')}
               whileHover={{ scale: 1.05, y: -2 }}
               className="inline-block px-10 py-4 bg-gradient-to-r from-[#ff1744] to-[#f50057] font-['Roboto_Mono'] text-sm uppercase tracking-[0.15em] font-semibold shadow-lg shadow-[#ff1744]/30 hover:shadow-xl hover:shadow-[#ff1744]/40 transition-all duration-300"
             >
               Discover the Story
-            </motion.a>
-          </motion.div>
+            </m.a>
+          </m.div>
 
           {/* Timeline Cards */}
-          <motion.div
+          <m.div
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
@@ -546,7 +547,7 @@ export default function VersaEmergePremium() {
               { year: '2014', title: 'Transformation', desc: 'Evolving sound and vision' },
               { year: '2025', title: 'Renaissance', desc: 'A new chapter begins' }
             ].map((item, i) => (
-              <motion.div
+              <m.div
                 key={i}
                 variants={fadeInUp}
                 whileHover={{ y: -8 }}
@@ -560,9 +561,9 @@ export default function VersaEmergePremium() {
                   <h3 className="font-['Cinzel_Decorative'] text-2xl mb-3">{item.title}</h3>
                   <p className="font-['Roboto_Mono'] text-sm text-white/60">{item.desc}</p>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -572,7 +573,7 @@ export default function VersaEmergePremium() {
 
         <div className="relative max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -60 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -593,21 +594,21 @@ export default function VersaEmergePremium() {
               <div className="absolute top-4 right-4 sm:top-8 sm:right-8 px-4 sm:px-6 py-3 bg-[#ff1744] backdrop-blur-xl font-['Roboto_Mono'] text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] font-semibold shadow-lg">
                 New Collection
               </div>
-            </motion.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
               variants={staggerContainer}
             >
-              <motion.div variants={fadeInUp} className="mb-4">
+              <m.div variants={fadeInUp} className="mb-4">
                 <span className="text-xs uppercase tracking-[0.3em] text-[#ff1744] font-['Roboto_Mono'] font-semibold">
                   Shop Now
                 </span>
-              </motion.div>
+              </m.div>
 
-              <motion.h2
+              <m.h2
                 variants={fadeInUp}
                 className="font-['Cinzel_Decorative'] text-4xl sm:text-5xl lg:text-6xl mb-6 leading-tight"
               >
@@ -615,33 +616,33 @@ export default function VersaEmergePremium() {
                 <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
                   MERCHANDISE
                 </span>
-              </motion.h2>
+              </m.h2>
 
-              <motion.p
+              <m.p
                 variants={fadeInUp}
                 className="font-['Roboto_Mono'] text-base sm:text-lg text-white/60 mb-8 leading-relaxed"
               >
                 Limited edition apparel and collectibles designed for those who embrace the darkness. Each piece tells a story of rebellion and artistic expression.
-              </motion.p>
+              </m.p>
 
-              <motion.div variants={fadeInUp} className="space-y-4 mb-8">
+              <m.div variants={fadeInUp} className="space-y-4 mb-8">
                 {['Premium Quality Fabrics', 'Limited Edition Designs', 'Worldwide Shipping'].map((item, i) => (
                   <div key={i} className="flex items-center gap-4">
                     <div className="w-1.5 h-1.5 bg-gradient-to-r from-[#ff1744] to-[#f50057] rotate-45" />
                     <span className="font-['Roboto_Mono'] text-sm text-white/80">{item}</span>
                   </div>
                 ))}
-              </motion.div>
+              </m.div>
 
-              <motion.a
+              <m.a
                 href={withBase('/merch')}
                 variants={fadeInUp}
                 whileHover={{ scale: 1.05, y: -2 }}
                 className="inline-block text-center w-full sm:w-auto px-8 sm:px-10 py-4 bg-gradient-to-r from-[#ff1744] to-[#f50057] font-['Roboto_Mono'] text-sm uppercase tracking-[0.15em] font-semibold shadow-lg shadow-[#ff1744]/30 hover:shadow-xl hover:shadow-[#ff1744]/40 transition-all duration-300"
               >
                 Browse Collection
-              </motion.a>
-            </motion.div>
+              </m.a>
+            </m.div>
           </div>
         </div>
       </section>
@@ -663,38 +664,38 @@ export default function VersaEmergePremium() {
         </div>
 
         <div className="relative max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-12">
-          <motion.div
+          <m.div
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
             variants={staggerContainer}
             className="text-center mb-12 lg:mb-16"
           >
-            <motion.div variants={fadeInUp} className="mb-4">
+            <m.div variants={fadeInUp} className="mb-4">
               <span className="text-xs uppercase tracking-[0.3em] text-[#ff1744] font-['Roboto_Mono'] font-semibold">
                 Live Performances
               </span>
-            </motion.div>
+            </m.div>
 
-            <motion.h2
+            <m.h2
               variants={fadeInUp}
               className="font-['Cinzel_Decorative'] text-4xl sm:text-5xl lg:text-6xl mb-6 leading-tight"
             >
               <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
                 UPCOMING TOURS
               </span>
-            </motion.h2>
+            </m.h2>
 
-            <motion.p
+            <m.p
               variants={fadeInUp}
               className="font-['Roboto_Mono'] text-base sm:text-lg text-white/60 max-w-2xl mx-auto"
             >
               Experience the intensity live. Join us on our journey across the world.
-            </motion.p>
-          </motion.div>
+            </m.p>
+          </m.div>
 
           {/* Tour Dates */}
-          <motion.div
+          <m.div
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
@@ -707,7 +708,7 @@ export default function VersaEmergePremium() {
               { date: 'MAY 12', city: 'Chicago', venue: 'House of Blues' },
               { date: 'MAY 19', city: 'London', venue: 'O2 Academy Brixton' }
             ].map((show, i) => (
-              <motion.div
+              <m.div
                 key={i}
                 variants={fadeInUp}
                 whileHover={{ x: 8 }}
@@ -730,9 +731,9 @@ export default function VersaEmergePremium() {
                 </div>
 
                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#ff1744] to-[#f50057] scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top" />
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -751,35 +752,35 @@ export default function VersaEmergePremium() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,23,68,0.1),transparent_70%)]" />
 
         <div className="relative max-w-[900px] mx-auto px-6 sm:px-8 lg:px-12 text-center">
-          <motion.div
+          <m.div
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
             variants={staggerContainer}
           >
-            <motion.div variants={fadeInUp} className="mb-4">
+            <m.div variants={fadeInUp} className="mb-4">
               <span className="text-xs uppercase tracking-[0.3em] text-[#ff1744] font-['Roboto_Mono'] font-semibold">
                 Stay Connected
               </span>
-            </motion.div>
+            </m.div>
 
-            <motion.h2
+            <m.h2
               variants={fadeInUp}
               className="font-['Cinzel_Decorative'] text-4xl sm:text-5xl mb-6 leading-tight"
             >
               <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
                 JOIN THE SHADOWS
               </span>
-            </motion.h2>
+            </m.h2>
 
-            <motion.p
+            <m.p
               variants={fadeInUp}
               className="font-['Roboto_Mono'] text-base sm:text-lg text-white/60 mb-10 sm:mb-12 leading-relaxed"
             >
               Exclusive updates, tour dates, and the haunting evolution of VersaEmerge delivered to your inbox.
-            </motion.p>
+            </m.p>
 
-            <motion.div
+            <m.div
               variants={fadeInUp}
               className="relative max-w-xl mx-auto"
             >
@@ -791,21 +792,21 @@ export default function VersaEmergePremium() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full min-w-0 flex-1 px-5 sm:px-8 py-5 bg-white/5 border border-white/10 font-['Roboto_Mono'] text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff1744] focus:bg-white/10 transition-all duration-300 backdrop-blur-xl"
                 />
-                <motion.button
+                <m.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="w-full sm:w-auto px-8 sm:px-10 py-5 bg-gradient-to-r from-[#ff1744] to-[#f50057] font-['Roboto_Mono'] text-sm uppercase tracking-[0.15em] font-semibold shadow-lg shadow-[#ff1744]/30 hover:shadow-xl hover:shadow-[#ff1744]/40 transition-all duration-300 whitespace-nowrap"
                 >
                   Subscribe
-                </motion.button>
+                </m.button>
               </div>
               <p className="font-['Roboto_Mono'] text-xs text-white/40 mt-4 text-left">
                 We respect your privacy. Unsubscribe at any time.
               </p>
-            </motion.div>
+            </m.div>
 
             {/* Social Links */}
-            <motion.div
+            <m.div
               variants={fadeInUp}
               className="flex flex-wrap gap-3 sm:gap-6 justify-center mt-12 sm:mt-16"
             >
@@ -816,17 +817,17 @@ export default function VersaEmergePremium() {
                 { name: 'Twitter', icon: Twitter },
                 { name: 'LinkedIn', icon: Linkedin }
               ].map(({ name, icon: Icon }) => (
-                <motion.button
+                <m.button
                   key={name}
                   whileHover={{ y: -4, scale: 1.1 }}
                   className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center transition-all duration-300 group"
                   aria-label={name}
                 >
                   <Icon className="w-5 h-5 text-white/50 group-hover:text-[#ff1744] transition-colors" />
-                </motion.button>
+                </m.button>
               ))}
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </section>
 

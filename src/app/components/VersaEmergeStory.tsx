@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { useEffect, useState, useCallback } from 'react';
+import { m } from 'motion/react';
 import { withBase } from '../basePath';
+import { useEscapeKey } from '../useEscapeKey';
 import {
   Facebook,
   Instagram,
@@ -11,8 +12,8 @@ import {
   X,
   Youtube,
 } from 'lucide-react';
-import imgForest from '../../imports/Home/c9d25a6bcc8d0db405bb265444afc8874b72f490.png';
-import imgIconLogo from '../../imports/versaemerge-icon-logo.png';
+import imgForest from '../../imports/Home/forest.webp';
+import imgIconLogo from '../../imports/versaemerge-icon-logo.webp';
 
 const storyAsset = (name: string) => withBase(`/assets/versaemerge-story/${name}`);
 
@@ -66,6 +67,8 @@ const fadeInUp = {
 
 export default function VersaEmergeStory() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const closeMobileMenu = useCallback(() => setMobileMenuOpen(false), []);
+  useEscapeKey(mobileMenuOpen, closeMobileMenu);
   const [email, setEmail] = useState('');
   const [scrolled, setScrolled] = useState(false);
 
@@ -78,7 +81,7 @@ export default function VersaEmergeStory() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#0a0e1a] text-white">
-      <motion.nav
+      <m.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
@@ -92,7 +95,7 @@ export default function VersaEmergeStory() {
             scrolled ? 'py-2 lg:py-3' : 'py-4 lg:py-6'
           }`}
         >
-          <motion.a href={withBase('/')} whileHover={{ scale: 1.02 }} className="relative min-w-0 lg:py-1">
+          <m.a href={withBase('/')} whileHover={{ scale: 1.02 }} className="relative min-w-0 lg:py-1">
             <img
               src={imgIconLogo}
               alt="VersaEmerge"
@@ -111,11 +114,11 @@ export default function VersaEmergeStory() {
               </span>
             </span>
             <span className="absolute inset-x-0 bottom-0 hidden h-[2px] bg-gradient-to-r from-transparent via-[#ff1744] to-transparent opacity-60 lg:block" />
-          </motion.a>
+          </m.a>
 
           <div className="hidden items-center gap-4 lg:flex xl:gap-12">
             {navLinks.map((link) => (
-              <motion.a
+              <m.a
                 key={link.label}
                 href={link.href}
                 whileHover={{ y: -2 }}
@@ -130,12 +133,12 @@ export default function VersaEmergeStory() {
                     link.label === 'Story' ? 'w-full' : 'w-0 group-hover:w-full'
                   }`}
                 />
-              </motion.a>
+              </m.a>
             ))}
 
             <div className="ml-2 flex items-center gap-3">
               {socialLinks.map(({ name, icon: Icon }) => (
-                <motion.a
+                <m.a
                   key={name}
                   href="#"
                   whileHover={{ scale: 1.1 }}
@@ -143,11 +146,11 @@ export default function VersaEmergeStory() {
                   aria-label={name}
                 >
                   <Icon className="h-4 w-4" />
-                </motion.a>
+                </m.a>
               ))}
             </div>
 
-            <motion.a
+            <m.a
               href="mailto:booking@versaemerge.com"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -157,7 +160,7 @@ export default function VersaEmergeStory() {
             >
               <span className="absolute inset-0 bg-gradient-to-r from-[#ff1744] to-[#f50057]" />
               <span className="relative z-10 font-semibold text-white">Contact</span>
-            </motion.a>
+            </m.a>
           </div>
 
           <button
@@ -172,7 +175,7 @@ export default function VersaEmergeStory() {
           </button>
         </div>
         {mobileMenuOpen && (
-          <motion.div
+          <m.div
             id="story-mobile-navigation"
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -192,20 +195,20 @@ export default function VersaEmergeStory() {
                 </a>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         )}
-        <motion.div
+        <m.div
           initial={false}
           animate={{ opacity: scrolled ? 1 : 0, scaleX: scrolled ? 1 : 0.35 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className="absolute inset-x-0 bottom-0 h-px origin-center bg-gradient-to-r from-transparent via-[#ff1744]/70 to-transparent"
         />
-      </motion.nav>
+      </m.nav>
 
       <main>
         {/* Hero: Paint It Black */}
         <section className="relative flex min-h-[760px] items-center justify-center overflow-hidden px-6 pb-20 pt-36 sm:pt-40">
-          <motion.div
+          <m.div
             initial={{ scale: 1.12 }}
             animate={{ scale: 1 }}
             transition={{ duration: 1.4, ease: 'easeOut' }}
@@ -214,31 +217,31 @@ export default function VersaEmergeStory() {
             <img src={imgForest} alt="" decoding="async" className="h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-[#0a0e1a]/65 to-[#0a0e1a]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(255,23,68,0.18),transparent_55%)]" />
-          </motion.div>
+          </m.div>
 
-          <motion.div initial="initial" animate="animate" className="relative z-10 mx-auto w-full max-w-5xl text-center">
-            <motion.p
+          <m.div initial="initial" animate="animate" className="relative z-10 mx-auto w-full max-w-5xl text-center">
+            <m.p
               variants={fadeInUp}
               className="mb-5 font-['Roboto_Mono'] text-xs font-semibold uppercase tracking-[0.3em] text-[#ff1744]"
             >
               The Story
-            </motion.p>
-            <motion.h1
+            </m.p>
+            <m.h1
               variants={fadeInUp}
               className="mb-7 font-['Cinzel_Decorative'] text-5xl leading-tight sm:text-6xl lg:text-7xl"
             >
               <span className="bg-gradient-to-r from-white via-white to-white/60 bg-clip-text text-transparent">
                 PAINT IT BLACK
               </span>
-            </motion.h1>
-            <motion.p
+            </m.h1>
+            <m.p
               variants={fadeInUp}
               className="mx-auto mb-12 max-w-3xl font-['Roboto_Mono'] text-base leading-relaxed text-white/65 sm:text-lg"
             >
               A journey through darkness into transformation.
-            </motion.p>
+            </m.p>
 
-            <motion.div
+            <m.div
               variants={fadeInUp}
               className="mx-auto grid max-w-4xl items-center gap-8 text-left lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-12"
             >
@@ -268,8 +271,8 @@ export default function VersaEmergeStory() {
                   The Rolling Stones, 1966
                 </figcaption>
               </figure>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </section>
 
         {/* Listen now */}
@@ -285,7 +288,7 @@ export default function VersaEmergeStory() {
             </div>
             <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
               {listeningServices.map((service) => (
-                <motion.a
+                <m.a
                   key={service.name}
                   href="#"
                   whileHover={{ y: -4, scale: 1.08 }}
@@ -299,7 +302,7 @@ export default function VersaEmergeStory() {
                     decoding="async"
                     className="h-8 w-8 object-contain"
                   />
-                </motion.a>
+                </m.a>
               ))}
             </div>
           </div>
@@ -320,30 +323,30 @@ export default function VersaEmergeStory() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_35%,rgba(245,0,87,0.1),transparent_55%)]" />
 
           <div className="relative mx-auto grid max-w-[1400px] items-start gap-12 px-6 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:gap-20 lg:px-12">
-            <motion.div
+            <m.div
               initial="initial"
               whileInView="animate"
               viewport={{ once: true, margin: '-80px' }}
               transition={{ staggerChildren: 0.1 }}
             >
-              <motion.p
+              <m.p
                 variants={fadeInUp}
                 className="mb-4 font-['Roboto_Mono'] text-xs font-semibold uppercase tracking-[0.3em] text-[#ff1744]"
               >
                 VersaEmerge
-              </motion.p>
-              <motion.h2
+              </m.p>
+              <m.h2
                 variants={fadeInUp}
                 className="mb-10 font-['Cinzel_Decorative'] text-4xl leading-tight sm:text-5xl lg:text-6xl"
               >
                 <span className="bg-gradient-to-r from-white via-white/90 to-white/60 bg-clip-text text-transparent">
                   THE STORY
                 </span>
-              </motion.h2>
+              </m.h2>
 
               <div className="space-y-12">
                 {storyChapters.map((chapter) => (
-                  <motion.article key={chapter.title} variants={fadeInUp}>
+                  <m.article key={chapter.title} variants={fadeInUp}>
                     <h3 className="mb-5 font-['Cinzel_Decorative'] text-2xl sm:text-3xl">
                       <span className="bg-gradient-to-r from-[#ff1744] to-[#f50057] bg-clip-text text-transparent">
                         {chapter.title}
@@ -354,12 +357,12 @@ export default function VersaEmergeStory() {
                         <p key={paragraph.slice(0, 32)}>{paragraph}</p>
                       ))}
                     </div>
-                  </motion.article>
+                  </m.article>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
@@ -388,7 +391,7 @@ export default function VersaEmergeStory() {
                 />
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0a0e1a]/80 to-transparent" />
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -434,19 +437,19 @@ export default function VersaEmergeStory() {
                 placeholder="Enter your email address"
                 className="min-w-0 flex-1 border border-white/10 bg-white/5 px-6 py-5 font-['Roboto_Mono'] text-sm text-white outline-none backdrop-blur-xl transition-all placeholder:text-white/30 focus:border-[#ff1744] focus:bg-white/10"
               />
-              <motion.button
+              <m.button
                 type="submit"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
                 className="bg-gradient-to-r from-[#ff1744] to-[#f50057] px-9 py-5 font-['Roboto_Mono'] text-sm font-semibold uppercase tracking-[0.15em] text-white shadow-lg shadow-[#ff1744]/30"
               >
                 Subscribe
-              </motion.button>
+              </m.button>
             </form>
 
             <div className="mt-12 flex flex-wrap justify-center gap-3 sm:gap-6">
               {socialLinks.map(({ name, icon: Icon }) => (
-                <motion.a
+                <m.a
                   key={name}
                   href="#"
                   whileHover={{ y: -4, scale: 1.1 }}
@@ -454,7 +457,7 @@ export default function VersaEmergeStory() {
                   aria-label={name}
                 >
                   <Icon className="h-5 w-5 text-white/50 transition-colors group-hover:text-[#ff1744]" />
-                </motion.a>
+                </m.a>
               ))}
             </div>
           </div>

@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
-import { motion } from 'motion/react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
+import { m } from 'motion/react';
 import { withBase } from '../basePath';
+import { useEscapeKey } from '../useEscapeKey';
 import {
   ArrowRight,
   CalendarPlus,
@@ -20,10 +21,10 @@ import {
   X,
   Youtube,
 } from 'lucide-react';
-import imgHallway from '../../imports/Home/b26a8d96a0d70b33ccc43691d2fce58b102ca1ec.png';
-import imgGothEyes from '../../imports/Home/35059a8c9ab5633b770ca028306257117896b6e9.png';
-import imgForest from '../../imports/Home/c9d25a6bcc8d0db405bb265444afc8874b72f490.png';
-import imgIconLogo from '../../imports/versaemerge-icon-logo.png';
+import imgHallway from '../../imports/Home/hallway.webp';
+import imgGothEyes from '../../imports/Home/goth-eyes.webp';
+import imgForest from '../../imports/Home/forest.webp';
+import imgIconLogo from '../../imports/versaemerge-icon-logo.webp';
 
 const storyAsset = (name: string) => withBase(`/assets/versaemerge-story/${name}`);
 
@@ -238,6 +239,8 @@ function useCountdown(target: Date | null) {
 
 export default function VersaEmergeTours() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const closeMobileMenu = useCallback(() => setMobileMenuOpen(false), []);
+  useEscapeKey(mobileMenuOpen, closeMobileMenu);
   const [email, setEmail] = useState('');
   const [scrolled, setScrolled] = useState(false);
   const [view, setView] = useState<'upcoming' | 'past'>('upcoming');
@@ -285,7 +288,7 @@ export default function VersaEmergeTours() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#0a0e1a] text-white">
-      <motion.nav
+      <m.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
@@ -299,7 +302,7 @@ export default function VersaEmergeTours() {
             scrolled ? 'py-2 lg:py-3' : 'py-4 lg:py-6'
           }`}
         >
-          <motion.a href={withBase('/')} whileHover={{ scale: 1.02 }} className="relative min-w-0 lg:py-1">
+          <m.a href={withBase('/')} whileHover={{ scale: 1.02 }} className="relative min-w-0 lg:py-1">
             <img
               src={imgIconLogo}
               alt="VersaEmerge"
@@ -318,11 +321,11 @@ export default function VersaEmergeTours() {
               </span>
             </span>
             <span className="absolute inset-x-0 bottom-0 hidden h-[2px] bg-gradient-to-r from-transparent via-[#ff1744] to-transparent opacity-60 lg:block" />
-          </motion.a>
+          </m.a>
 
           <div className="hidden items-center gap-4 lg:flex xl:gap-12">
             {navLinks.map((link) => (
-              <motion.a
+              <m.a
                 key={link.label}
                 href={link.href}
                 whileHover={{ y: -2 }}
@@ -337,12 +340,12 @@ export default function VersaEmergeTours() {
                     link.label === 'Tours' ? 'w-full' : 'w-0 group-hover:w-full'
                   }`}
                 />
-              </motion.a>
+              </m.a>
             ))}
 
             <div className="ml-2 flex items-center gap-3">
               {socialLinks.map(({ name, icon: Icon }) => (
-                <motion.a
+                <m.a
                   key={name}
                   href="#"
                   whileHover={{ scale: 1.1 }}
@@ -350,11 +353,11 @@ export default function VersaEmergeTours() {
                   aria-label={name}
                 >
                   <Icon className="h-4 w-4" />
-                </motion.a>
+                </m.a>
               ))}
             </div>
 
-            <motion.a
+            <m.a
               href="mailto:booking@versaemerge.com"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -364,7 +367,7 @@ export default function VersaEmergeTours() {
             >
               <span className="absolute inset-0 bg-gradient-to-r from-[#ff1744] to-[#f50057]" />
               <span className="relative z-10 font-semibold text-white">Contact</span>
-            </motion.a>
+            </m.a>
           </div>
 
           <button
@@ -380,7 +383,7 @@ export default function VersaEmergeTours() {
         </div>
 
         {mobileMenuOpen && (
-          <motion.div
+          <m.div
             id="tours-mobile-navigation"
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -400,19 +403,19 @@ export default function VersaEmergeTours() {
                 </a>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         )}
-        <motion.div
+        <m.div
           initial={false}
           animate={{ opacity: scrolled ? 1 : 0, scaleX: scrolled ? 1 : 0.35 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className="absolute inset-x-0 bottom-0 h-px origin-center bg-gradient-to-r from-transparent via-[#ff1744]/70 to-transparent"
         />
-      </motion.nav>
+      </m.nav>
 
       <main>
         <section className="relative flex min-h-[720px] items-center overflow-hidden px-6 pb-20 pt-36 sm:px-8 sm:pt-40 lg:min-h-screen lg:px-12">
-          <motion.div
+          <m.div
             initial={{ scale: 1.12 }}
             animate={{ scale: 1 }}
             transition={{ duration: 1.4, ease: 'easeOut' }}
@@ -421,17 +424,17 @@ export default function VersaEmergeTours() {
             <img src={imgHallway} alt="" decoding="async" fetchPriority="high" className="h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-[#0a0e1a]/65 to-[#0a0e1a]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_45%,rgba(255,23,68,0.2),transparent_55%)]" />
-          </motion.div>
+          </m.div>
 
           <div className="relative z-10 mx-auto grid w-full max-w-[1400px] items-center gap-14 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.85fr)] lg:gap-20">
-            <motion.div initial="initial" animate="animate" variants={staggerContainer}>
-              <motion.p
+            <m.div initial="initial" animate="animate" variants={staggerContainer}>
+              <m.p
                 variants={fadeInUp}
                 className="mb-5 font-['Roboto_Mono'] text-xs font-semibold uppercase tracking-[0.3em] text-[#ff1744]"
               >
                 Live · 2026 — 2027
-              </motion.p>
-              <motion.h1
+              </m.p>
+              <m.h1
                 variants={fadeInUp}
                 className="mb-6 font-['Cinzel_Decorative'] text-5xl leading-[1.05] sm:text-6xl lg:text-7xl xl:text-8xl"
               >
@@ -444,16 +447,16 @@ export default function VersaEmergeTours() {
                 <span className="mt-3 block font-['Roboto_Mono'] text-sm font-semibold uppercase tracking-[0.5em] text-white/70 sm:text-base">
                   World Tour
                 </span>
-              </motion.h1>
-              <motion.p
+              </m.h1>
+              <m.p
                 variants={fadeInUp}
                 className="mb-10 max-w-2xl font-['Roboto_Mono'] text-base leading-relaxed text-white/65 sm:text-lg"
               >
                 Step into the abyss as VersaEmerge brings its haunting rendition of “Paint It Black” to the stage.
                 A cinematic journey through shadows, where gothic melodies and raw punk energy collide.
-              </motion.p>
+              </m.p>
 
-              <motion.dl variants={fadeInUp} className="mb-10 flex flex-wrap gap-x-10 gap-y-5">
+              <m.dl variants={fadeInUp} className="mb-10 flex flex-wrap gap-x-10 gap-y-5">
                 {[
                   { label: 'Shows', value: upcoming.length },
                   { label: 'Countries', value: countries },
@@ -466,10 +469,10 @@ export default function VersaEmergeTours() {
                     <dd className="font-['Cinzel_Decorative'] text-3xl text-white sm:text-4xl">{stat.value}</dd>
                   </div>
                 ))}
-              </motion.dl>
+              </m.dl>
 
-              <motion.div variants={fadeInUp} className="flex flex-col gap-4 sm:flex-row">
-                <motion.a
+              <m.div variants={fadeInUp} className="flex flex-col gap-4 sm:flex-row">
+                <m.a
                   href="#dates"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.97 }}
@@ -477,8 +480,8 @@ export default function VersaEmergeTours() {
                 >
                   <Ticket className="h-4 w-4" />
                   Get Tickets
-                </motion.a>
-                <motion.a
+                </m.a>
+                <m.a
                   href="#vip"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.97 }}
@@ -486,12 +489,12 @@ export default function VersaEmergeTours() {
                 >
                   <Crown className="h-4 w-4" />
                   VIP Packages
-                </motion.a>
-              </motion.div>
-            </motion.div>
+                </m.a>
+              </m.div>
+            </m.div>
 
             {nextShow && countdown && (
-              <motion.aside
+              <m.aside
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
@@ -540,7 +543,7 @@ export default function VersaEmergeTours() {
                   ))}
                 </div>
 
-                <motion.a
+                <m.a
                   href={TICKETS_URL}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
@@ -548,8 +551,8 @@ export default function VersaEmergeTours() {
                 >
                   Tickets for {nextShow.city}
                   <ArrowRight className="h-4 w-4" />
-                </motion.a>
-              </motion.aside>
+                </m.a>
+              </m.aside>
             )}
           </div>
         </section>
@@ -647,7 +650,7 @@ export default function VersaEmergeTours() {
                   const isPast = view === 'past';
                   const soldOut = show.status === 'sold-out';
                   return (
-                    <motion.li
+                    <m.li
                       key={`${show.date}-${show.city}`}
                       initial={{ opacity: 0, y: 24 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -737,7 +740,7 @@ export default function VersaEmergeTours() {
                           </>
                         )}
                       </div>
-                    </motion.li>
+                    </m.li>
                   );
                 })}
               </ul>
@@ -761,34 +764,34 @@ export default function VersaEmergeTours() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,23,68,0.12),transparent_60%)]" />
 
           <div className="relative mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
-            <motion.div
+            <m.div
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
               variants={staggerContainer}
               className="mx-auto mb-14 max-w-3xl text-center"
             >
-              <motion.p
+              <m.p
                 variants={fadeInUp}
                 className="mb-4 font-['Roboto_Mono'] text-xs font-semibold uppercase tracking-[0.3em] text-[#ff1744]"
               >
                 Upgrade Your Night
-              </motion.p>
-              <motion.h2
+              </m.p>
+              <m.h2
                 id="vip-heading"
                 variants={fadeInUp}
                 className="mb-6 font-['Cinzel_Decorative'] text-4xl leading-tight sm:text-5xl"
               >
                 <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">VIP EXPERIENCES</span>
-              </motion.h2>
-              <motion.p variants={fadeInUp} className="font-['Roboto_Mono'] text-base leading-relaxed text-white/60">
+              </m.h2>
+              <m.p variants={fadeInUp} className="font-['Roboto_Mono'] text-base leading-relaxed text-white/60">
                 Get closer to the darkness. Every package is available on each date while supplies last.
-              </motion.p>
-            </motion.div>
+              </m.p>
+            </m.div>
 
             <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,19rem),1fr))] gap-6">
               {vipPackages.map((pkg, index) => (
-                <motion.article
+                <m.article
                   key={pkg.name}
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -843,7 +846,7 @@ export default function VersaEmergeTours() {
                   >
                     Choose {pkg.name}
                   </a>
-                </motion.article>
+                </m.article>
               ))}
             </div>
           </div>
@@ -852,7 +855,7 @@ export default function VersaEmergeTours() {
         <section className="deferred-section relative overflow-hidden py-20 lg:py-28">
           <div className="absolute inset-0 bg-[#0a0e1a]" />
           <div className="relative mx-auto grid max-w-[1400px] gap-6 px-6 sm:px-8 lg:grid-cols-2 lg:px-12">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -879,17 +882,17 @@ export default function VersaEmergeTours() {
                   Tour-exclusive tees, posters and the limited red vinyl. Available at every show and online
                   while it lasts.
                 </p>
-                <motion.a
+                <m.a
                   href={withBase('/merch')}
                   whileHover={{ scale: 1.05, y: -2 }}
                   className="inline-flex items-center gap-3 bg-gradient-to-r from-[#ff1744] to-[#f50057] px-7 py-4 font-['Roboto_Mono'] text-xs font-semibold uppercase tracking-[0.15em] shadow-lg shadow-[#ff1744]/25"
                 >
                   Shop Merch <ArrowRight className="h-4 w-4" />
-                </motion.a>
+                </m.a>
               </div>
-            </motion.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               id="request"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -936,7 +939,7 @@ export default function VersaEmergeTours() {
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -987,7 +990,7 @@ export default function VersaEmergeTours() {
             </div>
             <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
               {listeningServices.map((service) => (
-                <motion.a
+                <m.a
                   key={service.name}
                   href="#"
                   whileHover={{ y: -4, scale: 1.08 }}
@@ -1001,7 +1004,7 @@ export default function VersaEmergeTours() {
                     decoding="async"
                     className="h-8 w-8 object-contain"
                   />
-                </motion.a>
+                </m.a>
               ))}
             </div>
           </div>
@@ -1043,19 +1046,19 @@ export default function VersaEmergeTours() {
                 placeholder="Enter your email address"
                 className="min-w-0 flex-1 border border-white/10 bg-white/5 px-6 py-5 font-['Roboto_Mono'] text-sm text-white outline-none backdrop-blur-xl transition-all placeholder:text-white/30 focus:border-[#ff1744] focus:bg-white/10"
               />
-              <motion.button
+              <m.button
                 type="submit"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
                 className="bg-gradient-to-r from-[#ff1744] to-[#f50057] px-9 py-5 font-['Roboto_Mono'] text-sm font-semibold uppercase tracking-[0.15em] text-white shadow-lg shadow-[#ff1744]/30"
               >
                 Get Presale
-              </motion.button>
+              </m.button>
             </form>
 
             <div className="mt-12 flex flex-wrap justify-center gap-3 sm:gap-6">
               {socialLinks.map(({ name, icon: Icon }) => (
-                <motion.a
+                <m.a
                   key={name}
                   href="#"
                   whileHover={{ y: -4, scale: 1.1 }}
@@ -1063,7 +1066,7 @@ export default function VersaEmergeTours() {
                   aria-label={name}
                 >
                   <Icon className="h-5 w-5 text-white/50 transition-colors group-hover:text-[#ff1744]" />
-                </motion.a>
+                </m.a>
               ))}
             </div>
           </div>

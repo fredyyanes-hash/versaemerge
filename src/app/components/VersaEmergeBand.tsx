@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { useEffect, useState, useCallback } from 'react';
+import { m } from 'motion/react';
 import { withBase } from '../basePath';
+import { useEscapeKey } from '../useEscapeKey';
 import {
   Facebook,
   Instagram,
@@ -10,9 +11,9 @@ import {
   X,
   Youtube,
 } from 'lucide-react';
-import imgForest from '../../imports/Home/c9d25a6bcc8d0db405bb265444afc8874b72f490.png';
-import imgHallway from '../../imports/Home/b26a8d96a0d70b33ccc43691d2fce58b102ca1ec.png';
-import imgIconLogo from '../../imports/versaemerge-icon-logo.png';
+import imgForest from '../../imports/Home/forest.webp';
+import imgHallway from '../../imports/Home/hallway.webp';
+import imgIconLogo from '../../imports/versaemerge-icon-logo.webp';
 
 const bandAsset = (name: string) => withBase(`/assets/versaemerge-band/${name}`);
 
@@ -148,6 +149,8 @@ const fadeInUp = {
 
 export default function VersaEmergeBand() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const closeMobileMenu = useCallback(() => setMobileMenuOpen(false), []);
+  useEscapeKey(mobileMenuOpen, closeMobileMenu);
   const [email, setEmail] = useState('');
   const [scrolled, setScrolled] = useState(false);
 
@@ -160,7 +163,7 @@ export default function VersaEmergeBand() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#0a0e1a] text-white">
-      <motion.nav
+      <m.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
@@ -174,7 +177,7 @@ export default function VersaEmergeBand() {
             scrolled ? 'py-2 lg:py-3' : 'py-4 lg:py-6'
           }`}
         >
-          <motion.a href={withBase('/')} whileHover={{ scale: 1.02 }} className="relative min-w-0 lg:py-1">
+          <m.a href={withBase('/')} whileHover={{ scale: 1.02 }} className="relative min-w-0 lg:py-1">
             <img
               src={imgIconLogo}
               alt="VersaEmerge"
@@ -193,11 +196,11 @@ export default function VersaEmergeBand() {
               </span>
             </span>
             <span className="absolute inset-x-0 bottom-0 hidden h-[2px] bg-gradient-to-r from-transparent via-[#ff1744] to-transparent opacity-60 lg:block" />
-          </motion.a>
+          </m.a>
 
           <div className="hidden items-center gap-4 lg:flex xl:gap-12">
             {navLinks.map((link) => (
-              <motion.a
+              <m.a
                 key={link.label}
                 href={link.href}
                 whileHover={{ y: -2 }}
@@ -212,12 +215,12 @@ export default function VersaEmergeBand() {
                     link.label === 'Band' ? 'w-full' : 'w-0 group-hover:w-full'
                   }`}
                 />
-              </motion.a>
+              </m.a>
             ))}
 
             <div className="ml-2 flex items-center gap-3">
               {socialLinks.map(({ name, icon: Icon }) => (
-                <motion.a
+                <m.a
                   key={name}
                   href="#"
                   whileHover={{ scale: 1.1 }}
@@ -225,11 +228,11 @@ export default function VersaEmergeBand() {
                   aria-label={name}
                 >
                   <Icon className="h-4 w-4" />
-                </motion.a>
+                </m.a>
               ))}
             </div>
 
-            <motion.a
+            <m.a
               href="mailto:booking@versaemerge.com"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -239,7 +242,7 @@ export default function VersaEmergeBand() {
             >
               <span className="absolute inset-0 bg-gradient-to-r from-[#ff1744] to-[#f50057]" />
               <span className="relative z-10 font-semibold text-white">Contact</span>
-            </motion.a>
+            </m.a>
           </div>
 
           <button
@@ -254,7 +257,7 @@ export default function VersaEmergeBand() {
           </button>
         </div>
         {mobileMenuOpen && (
-          <motion.div
+          <m.div
             id="band-mobile-navigation"
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -274,20 +277,20 @@ export default function VersaEmergeBand() {
                 </a>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         )}
-        <motion.div
+        <m.div
           initial={false}
           animate={{ opacity: scrolled ? 1 : 0, scaleX: scrolled ? 1 : 0.35 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className="absolute inset-x-0 bottom-0 h-px origin-center bg-gradient-to-r from-transparent via-[#ff1744]/70 to-transparent"
         />
-      </motion.nav>
+      </m.nav>
 
       <main>
         {/* Hero: The Band */}
         <section className="relative flex min-h-[640px] items-end justify-center overflow-hidden px-6 pb-16 pt-36 sm:min-h-[760px] sm:pb-24 lg:min-h-screen">
-          <motion.div
+          <m.div
             initial={{ scale: 1.08 }}
             animate={{ scale: 1 }}
             transition={{ duration: 1.4, ease: 'easeOut' }}
@@ -305,37 +308,37 @@ export default function VersaEmergeBand() {
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-[#0a0e1a]" />
             <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0a0e1a] via-[#0a0e1a]/80 to-transparent" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_85%,rgba(255,23,68,0.18),transparent_55%)]" />
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             initial="initial"
             animate="animate"
             variants={staggerContainer}
             className="relative z-10 mx-auto w-full max-w-4xl text-center"
           >
-            <motion.p
+            <m.p
               variants={fadeInUp}
               className="mb-5 font-['Roboto_Mono'] text-xs font-semibold uppercase tracking-[0.3em] text-[#ff1744]"
             >
               Meet the Artists
-            </motion.p>
-            <motion.h1
+            </m.p>
+            <m.h1
               variants={fadeInUp}
               className="mb-7 font-['Cinzel_Decorative'] text-5xl leading-tight sm:text-6xl lg:text-7xl"
             >
               <span className="bg-gradient-to-r from-white via-white to-white/60 bg-clip-text text-transparent">
                 THE BAND
               </span>
-            </motion.h1>
-            <motion.p
+            </m.h1>
+            <m.p
               variants={fadeInUp}
               className="mx-auto max-w-3xl font-['Roboto_Mono'] text-base leading-relaxed text-white/70 sm:text-lg"
             >
               VersaEmerge emerges from the shadows, a collective of visionaries weaving a haunting tapestry of sound
               and story. Their reimagining of “Paint It Black” transcends tradition, blending gothic allure with raw
               emotional depth. Meet the souls behind the transformation.
-            </motion.p>
-          </motion.div>
+            </m.p>
+          </m.div>
         </section>
 
         {/* Members */}
@@ -353,20 +356,20 @@ export default function VersaEmergeBand() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(245,0,87,0.1),transparent_55%)]" />
 
           <div className="relative mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
-            <motion.div
+            <m.div
               initial="initial"
               whileInView="animate"
               viewport={{ once: true, margin: '-80px' }}
               variants={staggerContainer}
               className="mb-14 text-center lg:mb-20"
             >
-              <motion.p
+              <m.p
                 variants={fadeInUp}
                 className="mb-4 font-['Roboto_Mono'] text-xs font-semibold uppercase tracking-[0.3em] text-[#ff1744]"
               >
                 The Souls Behind the Sound
-              </motion.p>
-              <motion.h2
+              </m.p>
+              <m.h2
                 id="members-heading"
                 variants={fadeInUp}
                 className="font-['Cinzel_Decorative'] text-4xl leading-tight sm:text-5xl lg:text-6xl"
@@ -374,10 +377,10 @@ export default function VersaEmergeBand() {
                 <span className="bg-gradient-to-r from-white via-white/90 to-white/60 bg-clip-text text-transparent">
                   THE MEMBERS
                 </span>
-              </motion.h2>
-            </motion.div>
+              </m.h2>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial="initial"
               whileInView="animate"
               viewport={{ once: true, margin: '-80px' }}
@@ -385,7 +388,7 @@ export default function VersaEmergeBand() {
               className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,20rem),1fr))] gap-8 lg:gap-10"
             >
               {members.map((member) => (
-                <motion.article
+                <m.article
                   key={member.name}
                   variants={fadeInUp}
                   className="group relative flex flex-col rounded-2xl border border-white/10 bg-[#0a0e1a]/60 p-6 backdrop-blur-xl transition-colors duration-300 hover:border-white/20 sm:p-8"
@@ -427,9 +430,9 @@ export default function VersaEmergeBand() {
                       </li>
                     ))}
                   </ul>
-                </motion.article>
+                </m.article>
               ))}
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -448,20 +451,20 @@ export default function VersaEmergeBand() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(245,0,87,0.08),transparent_50%)]" />
 
           <div className="relative mx-auto max-w-[1400px] px-6 text-center sm:px-8 lg:px-12">
-            <motion.div
+            <m.div
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
               variants={staggerContainer}
               className="mx-auto max-w-4xl"
             >
-              <motion.p
+              <m.p
                 variants={fadeInUp}
                 className="mb-4 font-['Roboto_Mono'] text-xs font-semibold uppercase tracking-[0.3em] text-[#ff1744]"
               >
                 The Journey
-              </motion.p>
-              <motion.h2
+              </m.p>
+              <m.h2
                 id="journey-heading"
                 variants={fadeInUp}
                 className="mb-8 font-['Cinzel_Decorative'] text-4xl leading-tight sm:text-5xl lg:text-6xl"
@@ -469,17 +472,17 @@ export default function VersaEmergeBand() {
                 <span className="bg-gradient-to-r from-white via-white/90 to-white/60 bg-clip-text text-transparent">
                   RISING FROM THE SHADOWS
                 </span>
-              </motion.h2>
-              <motion.p
+              </m.h2>
+              <m.p
                 variants={fadeInUp}
                 className="font-['Roboto_Mono'] text-base leading-relaxed text-white/60 sm:text-lg"
               >
                 From a Florida garage to festival stages across the world, every chapter pushed VersaEmerge deeper
                 into the dark and closer to who they were meant to become.
-              </motion.p>
-            </motion.div>
+              </m.p>
+            </m.div>
 
-            <motion.ol
+            <m.ol
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
@@ -487,7 +490,7 @@ export default function VersaEmergeBand() {
               className="mt-12 grid gap-6 text-left sm:grid-cols-2 lg:mt-20 lg:grid-cols-3 lg:gap-8"
             >
               {milestones.map((item) => (
-                <motion.li key={item.year} variants={fadeInUp} whileHover={{ y: -8 }} className="group relative">
+                <m.li key={item.year} variants={fadeInUp} whileHover={{ y: -8 }} className="group relative">
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <div className="relative h-full rounded-2xl border border-white/10 p-6 backdrop-blur-sm transition-all duration-300 group-hover:border-white/20 sm:p-8">
                     <div className="mb-4 bg-gradient-to-r from-[#ff1744] to-[#f50057] bg-clip-text font-['Cinzel_Decorative'] text-5xl text-transparent lg:text-6xl">
@@ -496,9 +499,9 @@ export default function VersaEmergeBand() {
                     <h3 className="mb-3 font-['Cinzel_Decorative'] text-2xl">{item.title}</h3>
                     <p className="font-['Roboto_Mono'] text-sm leading-relaxed text-white/60">{item.desc}</p>
                   </div>
-                </motion.li>
+                </m.li>
               ))}
-            </motion.ol>
+            </m.ol>
           </div>
         </section>
 
@@ -508,19 +511,19 @@ export default function VersaEmergeBand() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_40%,rgba(255,23,68,0.1),transparent_55%)]" />
 
           <div className="relative mx-auto grid max-w-[1400px] gap-14 px-6 sm:px-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-20 lg:px-12">
-            <motion.div
+            <m.div
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
               variants={staggerContainer}
             >
-              <motion.p
+              <m.p
                 variants={fadeInUp}
                 className="mb-4 font-['Roboto_Mono'] text-xs font-semibold uppercase tracking-[0.3em] text-[#ff1744]"
               >
                 Discography
-              </motion.p>
-              <motion.h2
+              </m.p>
+              <m.h2
                 id="discography-heading"
                 variants={fadeInUp}
                 className="mb-10 font-['Cinzel_Decorative'] text-4xl leading-tight sm:text-5xl"
@@ -528,11 +531,11 @@ export default function VersaEmergeBand() {
                 <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
                   THE RECORDS
                 </span>
-              </motion.h2>
+              </m.h2>
 
               <ul className="divide-y divide-white/10 border-y border-white/10">
                 {discography.map((record) => (
-                  <motion.li
+                  <m.li
                     key={record.title}
                     variants={fadeInUp}
                     className="group grid grid-cols-[4rem_minmax(0,1fr)] items-baseline gap-x-4 gap-y-1 py-5 sm:grid-cols-[5rem_minmax(0,1fr)_auto]"
@@ -544,12 +547,12 @@ export default function VersaEmergeBand() {
                     <span className="col-start-2 font-['Roboto_Mono'] text-xs uppercase tracking-[0.15em] text-white/45 sm:col-start-3 sm:text-right">
                       {record.type} · {record.label}
                     </span>
-                  </motion.li>
+                  </m.li>
                 ))}
               </ul>
-            </motion.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -580,22 +583,22 @@ export default function VersaEmergeBand() {
               </ul>
 
               <div className="flex flex-col gap-4 sm:flex-row">
-                <motion.a
+                <m.a
                   href={withBase('/story')}
                   whileHover={{ scale: 1.05, y: -2 }}
                   className="inline-block bg-gradient-to-r from-[#ff1744] to-[#f50057] px-8 py-4 text-center font-['Roboto_Mono'] text-sm font-semibold uppercase tracking-[0.15em] shadow-lg shadow-[#ff1744]/30"
                 >
                   Discover the Story
-                </motion.a>
-                <motion.a
+                </m.a>
+                <m.a
                   href={withBase('/tours')}
                   whileHover={{ scale: 1.05, y: -2 }}
                   className="inline-block border border-white/20 px-8 py-4 text-center font-['Roboto_Mono'] text-sm font-semibold uppercase tracking-[0.15em] text-white/85 transition-colors hover:border-[#ff1744] hover:text-white"
                 >
                   See Tour Dates
-                </motion.a>
+                </m.a>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -641,19 +644,19 @@ export default function VersaEmergeBand() {
                 placeholder="Enter your email address"
                 className="min-w-0 flex-1 border border-white/10 bg-white/5 px-6 py-5 font-['Roboto_Mono'] text-sm text-white outline-none backdrop-blur-xl transition-all placeholder:text-white/30 focus:border-[#ff1744] focus:bg-white/10"
               />
-              <motion.button
+              <m.button
                 type="submit"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
                 className="bg-gradient-to-r from-[#ff1744] to-[#f50057] px-9 py-5 font-['Roboto_Mono'] text-sm font-semibold uppercase tracking-[0.15em] text-white shadow-lg shadow-[#ff1744]/30"
               >
                 Subscribe
-              </motion.button>
+              </m.button>
             </form>
 
             <div className="mt-12 flex flex-wrap justify-center gap-3 sm:gap-6">
               {socialLinks.map(({ name, icon: Icon }) => (
-                <motion.a
+                <m.a
                   key={name}
                   href="#"
                   whileHover={{ y: -4, scale: 1.1 }}
@@ -661,7 +664,7 @@ export default function VersaEmergeBand() {
                   aria-label={name}
                 >
                   <Icon className="h-5 w-5 text-white/50 transition-colors group-hover:text-[#ff1744]" />
-                </motion.a>
+                </m.a>
               ))}
             </div>
           </div>

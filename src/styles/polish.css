@@ -1,0 +1,41 @@
+/* Visible keyboard focus. In the base layer so components that style their
+   own focus state (e.g. inputs with a focus border) keep it. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid #ff1744;
+    outline-offset: 3px;
+  }
+}
+
+/* Page changes: a short cross-fade via the View Transitions API, or a fade-in
+   of the new page where that API isn't supported. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+  animation-timing-function: ease;
+}
+
+@supports not (view-transition-name: none) {
+  .page-enter {
+    animation: page-enter 0.35s ease both;
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Honor the system "reduce motion" setting for CSS animations and
+   transitions; Motion components follow it through MotionConfig. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

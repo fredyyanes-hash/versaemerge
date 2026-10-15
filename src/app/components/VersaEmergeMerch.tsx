@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
+import { AnimatePresence, m } from 'motion/react';
 import { withBase } from '../basePath';
+import { useEscapeKey } from '../useEscapeKey';
 import {
   Facebook,
   Instagram,
@@ -18,8 +19,8 @@ import {
   X,
   Youtube,
 } from 'lucide-react';
-import imgForest from '../../imports/Home/c9d25a6bcc8d0db405bb265444afc8874b72f490.png';
-import imgIconLogo from '../../imports/versaemerge-icon-logo.png';
+import imgForest from '../../imports/Home/forest.webp';
+import imgIconLogo from '../../imports/versaemerge-icon-logo.webp';
 
 const merchAsset = (name: string) => withBase(`/assets/versaemerge-merch/${name}`);
 
@@ -194,6 +195,8 @@ function ProductImage({ variant, alt, sizes, eager }: { variant: Variant; alt: s
 
 export default function VersaEmergeMerch() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const closeMobileMenu = useCallback(() => setMobileMenuOpen(false), []);
+  useEscapeKey(mobileMenuOpen, closeMobileMenu);
   const [email, setEmail] = useState('');
   const [scrolled, setScrolled] = useState(false);
   const [filter, setFilter] = useState<(typeof filters)[number]>('All');
@@ -293,7 +296,7 @@ export default function VersaEmergeMerch() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#0a0e1a] text-white">
-      <motion.nav
+      <m.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
@@ -307,7 +310,7 @@ export default function VersaEmergeMerch() {
             scrolled ? 'py-2 lg:py-3' : 'py-4 lg:py-6'
           }`}
         >
-          <motion.a href={withBase('/')} whileHover={{ scale: 1.02 }} className="relative min-w-0 lg:py-1">
+          <m.a href={withBase('/')} whileHover={{ scale: 1.02 }} className="relative min-w-0 lg:py-1">
             <img
               src={imgIconLogo}
               alt="VersaEmerge"
@@ -326,11 +329,11 @@ export default function VersaEmergeMerch() {
               </span>
             </span>
             <span className="absolute inset-x-0 bottom-0 hidden h-[2px] bg-gradient-to-r from-transparent via-[#ff1744] to-transparent opacity-60 lg:block" />
-          </motion.a>
+          </m.a>
 
           <div className="hidden items-center gap-4 lg:flex xl:gap-12">
             {navLinks.map((link) => (
-              <motion.a
+              <m.a
                 key={link.label}
                 href={link.href}
                 whileHover={{ y: -2 }}
@@ -345,12 +348,12 @@ export default function VersaEmergeMerch() {
                     link.label === 'Merch' ? 'w-full' : 'w-0 group-hover:w-full'
                   }`}
                 />
-              </motion.a>
+              </m.a>
             ))}
 
             <div className="ml-2 flex items-center gap-3">
               {socialLinks.map(({ name, icon: Icon }) => (
-                <motion.a
+                <m.a
                   key={name}
                   href="#"
                   whileHover={{ scale: 1.1 }}
@@ -358,7 +361,7 @@ export default function VersaEmergeMerch() {
                   aria-label={name}
                 >
                   <Icon className="h-4 w-4" />
-                </motion.a>
+                </m.a>
               ))}
             </div>
 
@@ -380,7 +383,7 @@ export default function VersaEmergeMerch() {
           </div>
         </div>
         {mobileMenuOpen && (
-          <motion.div
+          <m.div
             id="merch-mobile-navigation"
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -400,15 +403,15 @@ export default function VersaEmergeMerch() {
                 </a>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         )}
-        <motion.div
+        <m.div
           initial={false}
           animate={{ opacity: scrolled ? 1 : 0, scaleX: scrolled ? 1 : 0.35 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className="absolute inset-x-0 bottom-0 h-px origin-center bg-gradient-to-r from-transparent via-[#ff1744]/70 to-transparent"
         />
-      </motion.nav>
+      </m.nav>
 
       <main>
         {/* Hero: featured drop */}
@@ -417,29 +420,29 @@ export default function VersaEmergeMerch() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_80%,rgba(245,0,87,0.1),transparent_45%)]" />
 
           <div className="relative mx-auto grid max-w-[1400px] items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-20">
-            <motion.div initial="initial" animate="animate" variants={staggerContainer}>
-              <motion.p
+            <m.div initial="initial" animate="animate" variants={staggerContainer}>
+              <m.p
                 variants={fadeInUp}
                 className="mb-5 font-['Roboto_Mono'] text-xs font-semibold uppercase tracking-[0.3em] text-[#ff1744]"
               >
                 Official Store · The Halo Wings Drop
-              </motion.p>
-              <motion.h1
+              </m.p>
+              <m.h1
                 variants={fadeInUp}
                 className="mb-7 font-['Cinzel_Decorative'] text-5xl leading-tight sm:text-6xl lg:text-7xl"
               >
                 <span className="bg-gradient-to-r from-white via-white to-white/60 bg-clip-text text-transparent">
                   WEAR THE DARKNESS
                 </span>
-              </motion.h1>
-              <motion.p
+              </m.h1>
+              <m.p
                 variants={fadeInUp}
                 className="mb-8 max-w-xl font-['Roboto_Mono'] text-base leading-relaxed text-white/65 sm:text-lg"
               >
                 The crimson Halo Wings crest and the Fixed at Zero vulture, on pieces made to be worn from the pit to
                 the street. Small runs, gothic details, no compromises.
-              </motion.p>
-              <motion.div variants={fadeInUp} className="flex flex-col gap-4 sm:flex-row">
+              </m.p>
+              <m.div variants={fadeInUp} className="flex flex-col gap-4 sm:flex-row">
                 <a
                   href="#shop"
                   className="inline-block bg-gradient-to-r from-[#ff1744] to-[#f50057] px-8 py-4 text-center font-['Roboto_Mono'] text-sm font-semibold uppercase tracking-[0.15em] shadow-lg shadow-[#ff1744]/30 transition-transform hover:-translate-y-0.5"
@@ -453,17 +456,17 @@ export default function VersaEmergeMerch() {
                 >
                   View the Hoodie
                 </button>
-              </motion.div>
-              <motion.p
+              </m.div>
+              <m.p
                 variants={fadeInUp}
                 className="mt-8 inline-flex items-center gap-3 border border-[#ff1744]/30 bg-[#ff1744]/5 px-4 py-3 font-['Roboto_Mono'] text-xs leading-relaxed text-white/70"
               >
                 <span className="h-2 w-2 shrink-0 rotate-45 bg-[#ff1744]" />
                 Store preview: prices are placeholders and checkout is not open yet.
-              </motion.p>
-            </motion.div>
+              </m.p>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, ease: 'easeOut' }}
@@ -497,7 +500,7 @@ export default function VersaEmergeMerch() {
                   eager
                 />
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -538,13 +541,13 @@ export default function VersaEmergeMerch() {
               </div>
             </div>
 
-            <motion.ul layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+            <m.ul layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
               <AnimatePresence mode="popLayout">
                 {visibleProducts.map((product) => {
                   const variantIndex = cardVariant[product.id] ?? 0;
                   const variant = product.variants[variantIndex];
                   return (
-                    <motion.li
+                    <m.li
                       key={product.id}
                       layout
                       initial={{ opacity: 0, y: 30 }}
@@ -604,11 +607,11 @@ export default function VersaEmergeMerch() {
                           <span className="font-['Roboto_Mono'] text-xs text-white/50">{variant.color}</span>
                         </div>
                       )}
-                    </motion.li>
+                    </m.li>
                   );
                 })}
               </AnimatePresence>
-            </motion.ul>
+            </m.ul>
           </div>
         </section>
 
@@ -719,19 +722,19 @@ export default function VersaEmergeMerch() {
                 placeholder="Enter your email address"
                 className="min-w-0 flex-1 border border-white/10 bg-white/5 px-6 py-5 font-['Roboto_Mono'] text-sm text-white outline-none backdrop-blur-xl transition-all placeholder:text-white/30 focus:border-[#ff1744] focus:bg-white/10"
               />
-              <motion.button
+              <m.button
                 type="submit"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
                 className="bg-gradient-to-r from-[#ff1744] to-[#f50057] px-9 py-5 font-['Roboto_Mono'] text-sm font-semibold uppercase tracking-[0.15em] text-white shadow-lg shadow-[#ff1744]/30"
               >
                 Notify Me
-              </motion.button>
+              </m.button>
             </form>
 
             <div className="mt-12 flex flex-wrap justify-center gap-3 sm:gap-6">
               {socialLinks.map(({ name, icon: Icon }) => (
-                <motion.a
+                <m.a
                   key={name}
                   href="#"
                   whileHover={{ y: -4, scale: 1.1 }}
@@ -739,7 +742,7 @@ export default function VersaEmergeMerch() {
                   aria-label={name}
                 >
                   <Icon className="h-5 w-5 text-white/50 transition-colors group-hover:text-[#ff1744]" />
-                </motion.a>
+                </m.a>
               ))}
             </div>
           </div>
@@ -821,7 +824,7 @@ export default function VersaEmergeMerch() {
       {/* Quick view */}
       <AnimatePresence>
         {quickView && (
-          <motion.div
+          <m.div
             key="quick-view"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -829,7 +832,7 @@ export default function VersaEmergeMerch() {
             className="fixed inset-0 z-[60] flex items-end justify-center bg-black/75 backdrop-blur-sm sm:items-center sm:p-6"
             onClick={() => setQuickView(null)}
           >
-            <motion.div
+            <m.div
               role="dialog"
               aria-modal="true"
               aria-labelledby="quick-view-title"
@@ -967,15 +970,15 @@ export default function VersaEmergeMerch() {
                   ))}
                 </ul>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
 
       {/* Cart drawer */}
       <AnimatePresence>
         {cartOpen && (
-          <motion.div
+          <m.div
             key="cart"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -983,7 +986,7 @@ export default function VersaEmergeMerch() {
             className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm"
             onClick={() => setCartOpen(false)}
           >
-            <motion.aside
+            <m.aside
               role="dialog"
               aria-modal="true"
               aria-labelledby="cart-title"
@@ -1095,8 +1098,8 @@ export default function VersaEmergeMerch() {
                   </p>
                 </div>
               )}
-            </motion.aside>
-          </motion.div>
+            </m.aside>
+          </m.div>
         )}
       </AnimatePresence>
 
