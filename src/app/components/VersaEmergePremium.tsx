@@ -372,7 +372,9 @@ export default function VersaEmergePremium() {
       <section id="band" className="deferred-section relative py-20 lg:py-32 overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={withBase('/assets/versaemerge-band/band-portrait.webp')}
+            src={withBase('/assets/versaemerge-band/band-portrait-2400.webp')}
+            srcSet={`${withBase('/assets/versaemerge-band/band-portrait-1280.webp')} 1280w, ${withBase('/assets/versaemerge-band/band-portrait-2400.webp')} 2400w`}
+            sizes="100vw"
             alt="The Band"
             loading="lazy"
             decoding="async"

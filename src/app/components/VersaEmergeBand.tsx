@@ -294,8 +294,8 @@ export default function VersaEmergeBand() {
             className="absolute inset-0"
           >
             <img
-              src={bandAsset('band-portrait.webp')}
-              srcSet={`${bandAsset('band-portrait-960.webp')} 960w, ${bandAsset('band-portrait.webp')} 1920w`}
+              src={bandAsset('band-portrait-2400.webp')}
+              srcSet={`${bandAsset('band-portrait-1280.webp')} 1280w, ${bandAsset('band-portrait-2400.webp')} 2400w`}
               sizes="100vw"
               alt="Devin, Sierra and Blake of VersaEmerge"
               decoding="async"
